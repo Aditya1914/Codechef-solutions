@@ -1,0 +1,106 @@
+Parity permution (codechef)
+
+import java.io.*;
+import java.util.*;
+ 
+public class Main {
+    private static final FastIO io = new FastIO();
+ 
+    public static void main(String[] args) {
+        int t = io.nextInt();
+        
+        while (t-- != 0) solve();
+        io.close();
+    }
+ 
+    public static void solve() {
+      int n = io.nextInt();
+      int k = io.nextInt();
+      int []nums = new int[n];
+      int evens= 0 ;
+      int odds = 0;
+      for(int i = 0 ; i < n; i++ ) {
+    	  nums[i] = io.nextInt();
+    	  if(nums[i] % 2 == 0)evens++;
+    	  else odds++;
+      }
+    	int mod = 1000000007;
+    	long fact[] = new long[n+1];
+    	fact[0] = 1;
+    	fact[1] = 1;
+    	
+    	for(int i = 2 ; i <= n; i++ ) {
+    	fact[i] = (i * (fact[i-1]))	% mod;    	}
+        
+    	if( k== 1) {
+    		long ans = 1;
+    		if( odds == evens) {
+    	     
+    	     ans = 1L *ans *(fact[odds]) % mod;
+    	     ans = 1L *ans *(fact[evens]) % mod;
+    	     ans = 1L *ans*2 % mod;
+    	     io.println(ans);
+    		}
+    		else if( odds + 1 == evens || evens +1 == odds) {
+    			ans = 1L *ans *(fact[odds]) % mod;
+    			ans = 1L *ans * (fact[evens]) % mod;
+    			io.println(ans);
+    		}
+    		else {
+    			io.println(0);
+    		}
+    	}
+    	else {
+    		if( evens == n || odds == n) {
+    			io.println(fact[n]);
+    		}
+    		else {
+    			io.println(0);
+    		}
+    	}
+    }
+    
+    
+}
+ 
+class FastIO extends PrintWriter {
+    private BufferedReader br;
+    private StringTokenizer st;
+ 
+    public FastIO() {
+        this(System.in, System.out);
+    }
+ 
+    public FastIO(InputStream in, OutputStream out) {
+        super(out);
+        br = new BufferedReader(new InputStreamReader(in));
+    }
+ 
+    public FastIO(String input, String output) throws FileNotFoundException {
+        super(output);
+        br = new BufferedReader(new FileReader(input));
+    }
+ 
+    public String next() {
+        try {
+            while (st == null || !st.hasMoreTokens())
+                st = new StringTokenizer(br.readLine());
+            return st.nextToken();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+ 
+    public int nextInt() {
+        return Integer.parseInt(next());
+    }
+ 
+    public double nextDouble() {
+        return Double.parseDouble(next());
+    }
+ 
+    public long nextLong() {
+        return Long.parseLong(next());
+    }
+}
