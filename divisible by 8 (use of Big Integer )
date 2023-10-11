@@ -1,0 +1,32 @@
+import java.util.Scanner;
+import java.math.BigInteger;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int testCases = scanner.nextInt();
+
+        while (testCases-- > 0) {
+            int length = scanner.nextInt();
+            BigInteger inputNumber = scanner.nextBigInteger(); // Use BigInteger for large numbers
+            BigInteger divisibleNumber = findDivisibleNumber(inputNumber);
+            System.out.println(divisibleNumber);
+        }
+    }
+
+    public static BigInteger findDivisibleNumber(BigInteger n) {
+        BigInteger eight = new BigInteger("8");
+        if (n.compareTo(eight) == -1) {
+            return eight;
+        }
+        if (n.mod(eight).equals(BigInteger.ZERO)) {
+            return n;
+        }
+        BigInteger baseMultipleOf8 = n.divide(eight);
+        BigInteger closestDivisible = eight.multiply(baseMultipleOf8);
+        if (n.divide(BigInteger.TEN).compareTo(closestDivisible.divide(BigInteger.TEN)) != 0) {
+            closestDivisible = eight.multiply(baseMultipleOf8.add(BigInteger.ONE));
+        }
+        return closestDivisible;
+    }
+}
